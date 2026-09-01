@@ -1,6 +1,6 @@
 {
   "name": "neural-link-middleware",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Secure middleware for ETERNIVERSE OS featuring AES-256-GCM encryption and AI prompt shielding",
   "main": "dist/server.js",
   "type": "module",
