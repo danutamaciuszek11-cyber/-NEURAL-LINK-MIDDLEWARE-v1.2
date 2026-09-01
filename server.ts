@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import axios from 'axios';
-import { NeuralLink } from './NeuralLink.js';
-import { PromptShield } from './PromptShield.js';
-import { db } from './FirebaseAdmin.js';
+import { NeuralLink } from './server/NeuralLink.js';
+import { PromptShield } from './server/PromptShield.js';
+import { db } from './server/FirebaseAdmin.js';
 
 dotenv.config();
 
@@ -32,7 +32,7 @@ class BellasClient {
 
   async generateCinemaBlurb(payload: { prompt: string; agent_id: string }) {
     try {
-      const response = await axios.post(${this.baseURL}/api/agents/generate, payload, { timeout: 30000 });
+      const response = await axios.post(`${this.baseURL}/api/agents/generate`, payload, { timeout: 30000 });
       return response.data;
     } catch (error: any) {
       console.error('?? Bellas API error:', error.message);
@@ -42,7 +42,7 @@ class BellasClient {
 
   async getSystemStatus() {
     try {
-      const response = await axios.get(${this.baseURL}/api/health, { timeout: 5000 });
+      const response = await axios.get(`${this.baseURL}/api/health`, { timeout: 5000 });
       return response.data;
     } catch (error: any) {
       return { status: 'UNREACHABLE', error: error.message };
@@ -114,11 +114,7 @@ app.post('/api/neural/process', async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(
-?? NEURAL-LINK-MIDDLEWARE v1.2 ONLINE
-?? Listening on http://0.0.0.0:
-??? Prompt-Shield: ACTIVE
-?? Encryption: AES-256-GCM
-??? AEGIS-CORE BRIDGE: 
-  );
+  console.log(`NEURAL-LINK-MIDDLEWARE v1.2 listening on port ${PORT}`);
 });
+
+export default app;
